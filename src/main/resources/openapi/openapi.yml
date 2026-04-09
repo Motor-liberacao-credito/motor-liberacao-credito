@@ -1,0 +1,214 @@
+openapi: 3.0.3
+info:
+  title: Motor de Crédito API
+  description: API para avaliação de crédito, consulta de saldo/score e campanhas de renegociação
+  version: 1.0.0
+
+servers:
+  - url: /api/v1
+
+tags:
+  - name: motor-liberacao-credito
+    description: Operações relacionadas à avaliação de crédito, consulta de clientes e campanhas
+
+paths:
+  /credito/avaliar/{id}:
+    post:
+      summary: Avaliar crédito de um cliente
+      operationId: avaliarCredito
+      tags:
+        - motor-liberacao-credito
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: valorSolicitado
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+      responses:
+        '200':
+          description: Resultado da avaliação
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        '400':
+          description: Parâmetros inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /credito/cliente/{id}:
+    get:
+      summary: Consultar saldo e score de um cliente
+      operationId: consultarCliente
+      tags:
+        - motor-liberacao-credito
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dados do cliente com saldo e score
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /campanha/{id}:
+    get:
+      summary: Gerar proposta personalizada de campanha para um cliente
+      operationId: gerarCampanha
+      tags:
+        - motor-liberacao-credito
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Proposta personalizada de renegociação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampanhaResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /relatorio:
+    get:
+      summary: Gerar relatório de clientes elegíveis à campanha
+      operationId: gerarRelatorioCampanha
+      tags:
+        - motor-liberacao-credito
+      responses:
+        '200':
+          description: Lista de clientes elegíveis com mensagens de campanha
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RelatorioCampanhaResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    ClienteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "123"
+        nome:
+          type: string
+          example: "Cliente_123"
+        saldo:
+          type: number
+          format: double
+          example: 3500.75
+        score:
+          type: integer
+          example: 68
+
+    CampanhaResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "123"
+        nome:
+          type: string
+          example: "Cliente_123"
+        mensagemCampanha:
+          type: string
+          example: "Olá Cliente_123, você pode sair da inadimplência com parcelas de até R$ 350.00 por mês."
+
+    RelatorioCampanhaResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "123"
+        nome:
+          type: string
+          example: "Cliente_123"
+        saldo:
+          type: number
+          format: double
+          example: 200.00
+        score:
+          type: number
+          format: double
+          example: 66.7
+        mensagemCampanha:
+          type: string
+          example: "Olá Cliente_123, analisamos seu histórico e identificamos que você pode sair da inadimplência com parcelas de até R$ 200.00 por mês."
+
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-04-03T11:30:00Z"
+        status:
+          type: integer
+          example: 404
+        error:
+          type: string
+          example: "Cliente não encontrado"
+        path:
+          type: string
+          example: "/api/credito/cliente/123"
