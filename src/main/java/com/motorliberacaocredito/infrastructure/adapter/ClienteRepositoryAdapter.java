@@ -19,5 +19,8 @@ public class ClienteRepositoryAdapter implements ClienteRepositoryPort {
     @Override
     public Optional<ClienteModel> buscarporId(String id) {
         return repository.findById(id).map(mapper::toModel);
+
     }
 }
+
+

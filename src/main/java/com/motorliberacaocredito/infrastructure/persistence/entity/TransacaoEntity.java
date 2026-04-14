@@ -2,11 +2,14 @@ package com.motorliberacaocredito.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
+
+@Data
 @Entity
 @Builder
 @AllArgsConstructor
@@ -22,15 +25,18 @@ public class TransacaoEntity {
      @DecimalMin(value = "0.00", inclusive = true, message = "A transação não pode ser negativa")
      private BigDecimal valortransacao;
 
-    @Column(name = "DATA")
-    private Date data;
+
+    @CreatedDate
+    @Column(name = "DATA", nullable = false, updatable = false)
+    private LocalDateTime data;
+
 
     @Column(name = "POSITIVA")
     private boolean positiva;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
-    private ClienteEntity CLIENTE;
+    private ClienteEntity cliente;
 
 }
 

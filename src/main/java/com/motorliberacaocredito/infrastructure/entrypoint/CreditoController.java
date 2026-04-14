@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/credito")
+@RequestMapping("/api/v1/credito")
 @RequiredArgsConstructor
-public class ClienteController {
+public class CreditoController {
     private final GetConsultarSaldoClienteByIdUseCase getClienteByIdUseCase;
 
     @GetMapping("cliente/{id}")
@@ -20,4 +20,6 @@ public class ClienteController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
 }
