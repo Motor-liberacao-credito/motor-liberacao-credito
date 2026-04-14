@@ -1,10 +1,8 @@
 package com.motorliberacaocredito.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,14 +32,9 @@ public class ClienteEntity {
     @Column(name = "SALDO", nullable = false, precision = 19, scale = 2)
     private BigDecimal saldo;
 
-    @Column(name = "SCORE", nullable = false)
-    private Integer score;
 
-
-    @OneToMany(
-            mappedBy = "CLIENTE",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
-    )
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TransacaoEntity> transacoes;
+
+
 }
