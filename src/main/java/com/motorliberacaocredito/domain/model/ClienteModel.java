@@ -1,26 +1,32 @@
 package com.motorliberacaocredito.domain.model;
 
+import com.motorliberacaocredito.domain.service.ScoreCalculatorService;
+
 import java.math.BigDecimal;
-//import java.util.ArrayList;
-//import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteModel {
 
     private String id;
     private String nome;
     private BigDecimal saldo;
-    private Integer score;
-    //private List<TransacaoModel> transacoes = new ArrayList<>();
+    private BigDecimal score;
+    private List<TransacaoModel> transacoes = new ArrayList<>();
+
 
     public ClienteModel() {
     }
 
-    public ClienteModel(Integer score, BigDecimal saldo, String nome, String id) {
-        this.score = score;
+    public ClienteModel( BigDecimal saldo, String nome, String id, List<TransacaoModel> transacoes) {
         this.saldo = saldo;
         this.nome = nome;
         this.id = id;
+        this.transacoes = transacoes;
+
     }
+
+
 
     public String getId() {
         return id;
@@ -46,19 +52,24 @@ public class ClienteModel {
         this.saldo = saldo;
     }
 
-    public Integer getScore() {
+    public BigDecimal getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(BigDecimal score) {
         this.score = score;
     }
 
-    //public List<TransacaoModel> getTransacoes() {
-        //return transacoes;
-    //}
+    public List<TransacaoModel> getTransacoes() {
+        return transacoes;
+    }
 
-    //public void setTransacoes(List<TransacaoModel> transacoes) {
-       // this.transacoes = transacoes;
-   // }
-}
+    public void setTransacoes(List<TransacaoModel> transacoes) {
+        this.transacoes = transacoes;
+    }
+
+
+
+
+    }
+

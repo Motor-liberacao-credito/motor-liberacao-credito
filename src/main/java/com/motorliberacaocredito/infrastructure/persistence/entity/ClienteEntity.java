@@ -32,50 +32,9 @@ public class ClienteEntity {
     @Column(name = "SALDO", nullable = false, precision = 19, scale = 2)
     private BigDecimal saldo;
 
-    @Column(name = "SCORE", nullable = false)
-    private Integer score;
 
-
-    @OneToMany(mappedBy = "CLIENTE", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TransacaoEntity> transacoes;
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public BigDecimal getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(BigDecimal saldo) {
-        this.saldo = saldo;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public List<TransacaoEntity> getTransacoes() {
-        return transacoes;
-    }
-
-    public void setTransacoes(List<TransacaoEntity> transacoes) {
-        this.transacoes = transacoes;
-    }
 }
