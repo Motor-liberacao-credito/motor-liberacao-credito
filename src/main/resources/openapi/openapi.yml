@@ -12,7 +12,7 @@ tags:
     description: Operações relacionadas à avaliação de crédito, consulta de clientes e campanhas
 
 paths:
-  /credito/avaliar/{id}:
+  /avaliar/{id}:
     post:
       summary: Avaliar crédito de um cliente
       operationId: avaliarCredito
@@ -57,7 +57,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  /credito/cliente/{id}:
+  /cliente/{id}:
     get:
       summary: Consultar saldo e score de um cliente
       operationId: consultarCliente
@@ -145,6 +145,27 @@ paths:
 
 components:
   schemas:
+    ClienteDTO:
+      type: object
+      required:
+        - id
+        - nome
+        - saldo
+      properties:
+        id:
+          type: string
+          description: ID único do cliente
+          example: 1
+        nome:
+          type: string
+          description: Nome do cliente
+          example: "cliente_1"
+        saldo:
+          type: number
+          format: bigdecimal
+          description: Saldo do cliente
+          example: 100.50
+
     ClienteResponse:
       type: object
       properties:
@@ -156,10 +177,11 @@ components:
           example: "Cliente_123"
         saldo:
           type: number
-          format: double
+          format: bigdecimal
           example: 3500.75
         score:
-          type: integer
+          type: number
+          format: bigdecimal
           example: 68
 
     CampanhaResponse:
@@ -196,6 +218,26 @@ components:
           type: string
           example: "Olá Cliente_123, analisamos seu histórico e identificamos que você pode sair da inadimplência com parcelas de até R$ 200.00 por mês."
 
+    DataResponse:
+      type: object
+      required:
+        - message
+        - httpStatus
+        - timestamp
+      properties:
+       message:
+          type: string
+          description: Human-readable error message
+          example: "Invalid data provided"
+       httpStatus:
+            type: integer
+            description: Machine-readable error code
+            example: "INVALID_DATA"
+       timestamp:
+            type: string
+            format: date-time
+            description: Dta e hora em que o erro ocorreu
+            example: "2024-06-01T12:00:00Z"
     ErrorResponse:
       type: object
       properties:

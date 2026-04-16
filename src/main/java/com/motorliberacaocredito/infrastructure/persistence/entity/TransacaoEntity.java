@@ -35,7 +35,7 @@ public class TransacaoEntity {
     private boolean positiva;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "ID_CLIENTE")
     private ClienteEntity cliente;
 
 }
