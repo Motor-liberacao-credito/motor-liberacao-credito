@@ -1,6 +1,5 @@
 package com.motorliberacaocredito.domain.model;
 
-import com.motorliberacaocredito.domain.service.ScoreCalculatorService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,15 +16,6 @@ public class ClienteModel {
 
     public ClienteModel() {
     }
-
-    public ClienteModel( BigDecimal saldo, String nome, String id, List<TransacaoModel> transacoes) {
-        this.saldo = saldo;
-        this.nome = nome;
-        this.id = id;
-        this.transacoes = transacoes;
-
-    }
-
 
 
     public String getId() {

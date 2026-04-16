@@ -4,6 +4,7 @@ import com.motorliberacaocredito.aplication.usecase.GetConsultarSaldoClienteById
 import com.motorliberacaocredito.domain.model.ClienteModel;
 import com.motorliberacaocredito.domain.model.TransacaoModel;
 import com.motorliberacaocredito.domain.port.ClienteRepositoryPort;
+import com.motorliberacaocredito.domain.service.SaldoCalculatorService;
 import com.motorliberacaocredito.domain.service.ScoreCalculatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class GetConsultarSaldoClienteByIdUseCaseImpl implements GetConsultarSald
 
     private final ClienteRepositoryPort clienteRepositoryPort;
     private final ScoreCalculatorService scoreCalculatorService;
+    private final SaldoCalculatorService saldoCalculatorService;
 
     @Override
     public Optional<ClienteModel> execute(String id){
@@ -25,17 +27,8 @@ public class GetConsultarSaldoClienteByIdUseCaseImpl implements GetConsultarSald
             BigDecimal novoScore = scoreCalculatorService.calcularScore(cliente);
             cliente.setScore(novoScore);
 
-            BigDecimal novoSaldo = cliente.getSaldo();
-            for(TransacaoModel t: cliente.getTransacoes()){
-                if(!t.isPositiva()){
-                     novoSaldo = novoSaldo.subtract(t.getValortransacao());
-                } else {
-                    novoSaldo = novoSaldo.add(t.getValortransacao());
-                }
-            }
-
+            BigDecimal novoSaldo = saldoCalculatorService.calcularSaldo(cliente);
             cliente.setSaldo(novoSaldo);
-
             return cliente;
         });
 
