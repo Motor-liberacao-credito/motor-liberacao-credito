@@ -7,8 +7,15 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @AllArgsConstructor
 @Slf4j
+
 public class ClienteNaoEncontradoException extends RuntimeException {
-    public ClienteNaoEncontradoException(String message, RuntimeException rte){super(message, rte);}
+    public ClienteNaoEncontradoException(String message) {
+        super(message);
+    }
+
+    public ClienteNaoEncontradoException(String message, RuntimeException rte) {
+        super(message, rte);
+    }
 }
 
 // Saldo Insuficiente e score
