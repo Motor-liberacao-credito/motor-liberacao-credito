@@ -26,6 +26,7 @@ public class PostAvaliarCreditoClienteUseCaseImpl implements PostAvaliarCreditoC
 
             BigDecimal novoScore = scoreCalculatorService.calcularScore(cliente);
 
+
             Double limitePermitido = cliente.getSaldo().doubleValue() * 0.35;
 
             BigDecimal valorScore = BigDecimal.valueOf(60);

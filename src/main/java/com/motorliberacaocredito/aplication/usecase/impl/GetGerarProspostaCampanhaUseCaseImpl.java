@@ -17,11 +17,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GetGerarProspostaCampanhaUseCaseImpl implements GetGerarProspostaCampanhaUseCase {
 
+    // Saldo e Score
+    // Calcular probabilidade
     private final ClienteRepositoryPort clienteRepositoryPort;
     private final SaldoCalculatorService saldoCalculatorService;
 
     @Override
     public PropostaCampanhaModel execute(String id){
+
 
      return clienteRepositoryPort.buscarporId(id)
              .map(cliente -> {
