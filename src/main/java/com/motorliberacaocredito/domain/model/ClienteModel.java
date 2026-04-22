@@ -1,9 +1,12 @@
 package com.motorliberacaocredito.domain.model;
 
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ClienteModel {
 

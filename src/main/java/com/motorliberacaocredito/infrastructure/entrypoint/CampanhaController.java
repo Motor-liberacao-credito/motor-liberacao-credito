@@ -1,6 +1,6 @@
 package com.motorliberacaocredito.infrastructure.entrypoint;
 
-import com.motorliberacaocredito.aplication.usecase.GetGerarProspostaCampanhaUseCase;
+import com.motorliberacaocredito.aplication.usecase.GetGerarCampanhaUseCase;
 import com.motorliberacaocredito.domain.model.CampanhaResponse;
 import com.motorliberacaocredito.domain.model.PropostaCampanhaModel;
 import com.motorliberacaocredito.infrastructure.mapper.CampanhaResponseMapper;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CampanhaController implements CampanhaApi {
 
-    private final GetGerarProspostaCampanhaUseCase gerarProspostaCampanhaUseCase;
+    private final GetGerarCampanhaUseCase gerarProspostaCampanhaUseCase;
 
     @Override
-    public ResponseEntity<CampanhaResponse> gerarCampanha(String id){
-        PropostaCampanhaModel model = gerarProspostaCampanhaUseCase.execute(id);
+    public ResponseEntity<CampanhaResponse> gerarCampanha(String clienteId){
+        PropostaCampanhaModel model = gerarProspostaCampanhaUseCase.gerarCampanha(clienteId);
 
         CampanhaResponse response = CampanhaResponseMapper.toResponse(model);
         response.setId(model.getId());

@@ -1,20 +1,12 @@
 package com.motorliberacaocredito.infrastructure.entrypoint;
 
 import com.motorliberacaocredito.aplication.usecase.GetConsultarSaldoClienteByIdUseCase;
-import com.motorliberacaocredito.aplication.usecase.GetGerarProspostaCampanhaUseCase;
-import com.motorliberacaocredito.aplication.usecase.PostAvaliarCreditoClienteUseCase;
-import com.motorliberacaocredito.aplication.usecase.input.AvaliarCreditoInput;
-import com.motorliberacaocredito.domain.model.CampanhaResponse;
 import com.motorliberacaocredito.domain.model.ClienteModel;
 import com.motorliberacaocredito.domain.model.ClienteResponse;
-import com.motorliberacaocredito.infrastructure.mapper.CampanhaResponseMapper;
 import com.motorliberacaocredito.infrastructure.mapper.ClienteResponseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/credito")

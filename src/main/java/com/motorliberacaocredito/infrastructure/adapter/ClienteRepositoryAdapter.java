@@ -8,6 +8,7 @@ import com.motorliberacaocredito.infrastructure.persistence.entity.repository.Cl
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -23,10 +24,15 @@ public class ClienteRepositoryAdapter implements ClienteRepositoryPort {
 
     }
 
+
     @Override
-    public void salvar(ClienteModel cliente) {
-        repository.save(mapper.toEntity(cliente));
+    public List<ClienteModel> buscarTodos() {
+        return repository.findAll()
+                .stream()
+                .map(mapper::toModel)
+                .toList();
     }
+
 
 }
 

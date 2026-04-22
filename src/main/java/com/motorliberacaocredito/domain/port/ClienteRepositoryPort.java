@@ -9,7 +9,9 @@ import java.util.Optional;
 
 public interface ClienteRepositoryPort {
    Optional <ClienteModel> buscarporId(String id);
-   void salvar(ClienteModel cliente);
+   List<ClienteModel> buscarTodos();
+
+
 
 
 }
